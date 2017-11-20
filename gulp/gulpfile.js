@@ -15,25 +15,25 @@ gulp.task('serve', ['sass'], function() {
         notify: false
     });
 
-    gulp.watch(path + "/assets/scss/*.scss", ['sass']);
-    gulp.watch(path + "/assets/js/vendors/*.js", ['concat']);
+    gulp.watch(path + "/docs/scss/*.scss", ['sass']);
+    gulp.watch(path + "/docs/js/vendors/*.js", ['concat']);
     gulp.watch(path + "/*.html").on('change', browserSync.reload);
 });
 
 gulp.task('sass', function() {
-    return gulp.src(path + "/assets/scss/*.scss")
+    return gulp.src(path + "/docs/scss/*.scss")
         .pipe(plumber({errorHandler: notify.onError("Error: <%= error.message %>")}))
         .pipe(sass({outputStyle: 'compressed'}).on('error', sass.logError))
         .pipe(rename("main.min.css"))
         .pipe(sourcemaps.write())
-        .pipe(gulp.dest(path + "/assets/css/"))
+        .pipe(gulp.dest(path + "/docs/css/"))
         .pipe(browserSync.stream());
 });
 
 gulp.task('concat', function() {
-    return gulp.src(path + "/assets/js/vendors/*.js")
+    return gulp.src(path + "/docs/js/vendors/*.js")
         .pipe(concat("vendors.js"))
-        .pipe(gulp.dest(path + "/assets/js/"));
+        .pipe(gulp.dest(path + "/docs/js/"));
 });
 
 gulp.task('default', ['serve']);
